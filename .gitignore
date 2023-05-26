@@ -1,4 +1,10 @@
 .vscode/
 *.exe
 *.o
-*.json
+*.obj
+*.in
+*.out
+*.ans
+test.*
+tmp.*
+temp.*
