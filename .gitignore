@@ -8,3 +8,6 @@
 test.*
 tmp.*
 temp.*
+in.txt
+out.txt
+ans.txt

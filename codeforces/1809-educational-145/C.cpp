@@ -1,23 +1,26 @@
-
 #include <bits/stdc++.h>
 using namespace std;
-const int maxn = 1e3+10;
-int t, n, k;
-int ct[40];
+int t,n,k;
 int main() {
-    for(int i=1;i<=30;i++) ct[i] = i*(i+1)/2;
-    cin >> t;
-    while (t--) {
-        cin >> n >> k;
-        int minus_ct;
-        for(int i=30;i>=1;i--) if(ct[i] <= k) minus_ct = i;
-        int ans[40];
-        for(int i=n;i>=n-minus_ct+1;i--) ans[i] = -(1000/minus_ct)+(n-i+1);
-        int cc = minus_ct, rem = k - ct[minus_ct];
-        for(int i=n-minus_ct;i>=1;i--)  {
-            if(rem <= cc) ans[i] = -1, rem -= cc;
-            else ans[i] =  
+    cin>>t;
+    while(t--) {
+        cin>>n>>k;
+        int r=1,rem=0;
+        for(int i=1;i<=30;i++) {
+            if(i*(i+1)/2==k) {
+                for(int j=1;j<=i;j++) printf("1 ");
+                for(int j=i+1;j<=n;j++) printf("-1000 ");
+                puts("");
+                goto end;
+            }
         }
+        while(r*(r+1)/2<k) r++;
+        for(int i=1;i<r;i++) printf("30 ");
+        rem=k-r*(r-1)/2;
+        printf("%d ",-(30*(r-1-rem)+10));
+        for(int i=r+1;i<=n;i++) printf("-1000 ");
+        puts("");
+end:    ;
     }
     return 0;
 }
