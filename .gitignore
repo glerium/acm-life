@@ -5,7 +5,7 @@
 *.in
 *.out
 *.ans
-test.*
+test*
 tmp.*
 temp.*
 in.txt
@@ -13,3 +13,4 @@ out.txt
 ans.txt
 .VSCodeCounter/
 /duipai/
+/my-projects/
