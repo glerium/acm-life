@@ -14,10 +14,6 @@ int main() {
         per(i,n-1,1) s1[i]=s1[i+1]+(a[i+1]<=a[i]);
         rep(i,2,n) s2[i]=s2[i-1]+(a[i]>=a[i-1]);
         int ans=INT_MAX;
-        // rep(i,1,n+1) cout<<s1[i]<<' ';
-        // cout<<endl;
-        // rep(i,1,n+1) cout<<s2[i]<<' ';
-        // cout<<endl;
         rep(i,1,n) ans=min(ans,s1[i+1]+s2[i]+1);
         ans=min(ans,s1[1]);
         cout<<ans<<endl;
