@@ -4,15 +4,15 @@
 using namespace std;
 typedef long long ll;
 const int maxn=2e5+10;
-int n,t;
+int n,_;
 vector<int> pt; // power of two
 int cta[50], ctm[50];
 ll a[maxn];
 int main() {
     ios::sync_with_stdio(false);
-    cin>>t;
+    cin>>_;
     for(int i=0;i<40;i++) pt.push_back(1ll<<i);
-    while(t--) {
+    while(_--) {
         for(int i=0;i<=45;i++) cta[i]=ctm[i]=0;
         cin>>n;
         for(int i=1;i<=n;i++) cin>>a[i];
