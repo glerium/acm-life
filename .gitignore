@@ -14,3 +14,6 @@ ans.txt
 .VSCodeCounter/
 /duipai/
 /my-projects/
+.idea/
+cmake-build-debug/
+CMakeLists.txt

@@ -7,8 +7,8 @@ typedef pair<int,int> pii;
 constexpr int maxn=2e5+10;
 int n,q,x,y,l,r;
 string s;
-pii way[maxn], wayr[maxn];
-map<pii,vector<int>> tml, tmr;
+pii way[maxn];
+map<pii,vector<int>> tml;
 pii operator+(const pii& rhs,const pii& lhs) {return {rhs.first+lhs.first,rhs.second+lhs.second};}
 pii operator-(const pii& rhs,const pii& lhs) {return {rhs.first-lhs.first,rhs.second-lhs.second};}
 void generate_way(string s, pii *way, map<pii,vector<int>>& tm) {
@@ -30,17 +30,15 @@ int main() {
     ios::sync_with_stdio(false);
     cin>>n>>q>>s;
     generate_way(s,way,tml);
-    generate_way(string(s.crbegin(),s.crend()),wayr,tmr);
     while(q--) {
         cin>>x>>y>>l>>r;
         if(tml.count({x,y})&&tml[{x,y}][0]<l) yes;
         if(tml.count({x,y})&&tml[{x,y}][tml[{x,y}].size()-1]>=r) yes;
-        pii rx=way[r]+make_pair(x,y)-way[l-1];
-        vector<int>& tms=tmr[rx];
-        // find [l,r-1]
-        int ll=n-r+1,rr=n-l+1;
-        auto it=lower_bound(tms.cbegin(), tms.cend(), ll);
-        if(it!=tms.end()&&*it<=rr) puts("YES");
+        pii rx=way[r]-make_pair(x,y)+way[l-1];
+        if(!tml.count(rx)) no;
+        vector<int>& tmm=tml[rx];
+        auto it=lower_bound(tmm.begin(), tmm.end(), l);
+        if(it!=tmm.end()&&*it<r) puts("YES");
         else puts("NO");
     }
     return 0;
