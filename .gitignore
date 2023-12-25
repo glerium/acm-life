@@ -5,6 +5,9 @@
 *.in
 *.out
 *.ans
+*.jar
+*.class
+*.kotlin_module
 test*
 tmp.*
 temp.*
@@ -17,3 +20,4 @@ ans.txt
 .idea/
 cmake-build-debug/
 CMakeLists.txt
+sdu-mpi/
