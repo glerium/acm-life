@@ -13,7 +13,7 @@ void modify(int pos,int x) {
         pos+=lowbit(pos);
     }
 }
-int _query(int x) {
+ll _query(int x) {
     ll ans=0;
     while(x) {
         ans+=f[x];
@@ -21,21 +21,35 @@ int _query(int x) {
     }
     return ans;
 }
-int query(int l,int r) {
+ll query(int l,int r) {
     return _query(r)-_query(l-1);
 }
 int main() {
     ios::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+    cin>>t;
     while(t--) {
         cin>>n>>q;
         for(int i=0;i<=n;i++) f[i]=0;
+        for(int i=1;i<=n;i++) {
+            cin>>a[i];
+            modify(i,a[i]);
+        }
+//         cout<<":"<<_query(n)<<endl;
         while(q--) {
             int op,x,y; cin>>op>>x>>y;
             if(op==1) {
                 modify(x,y-a[x]);
                 a[x]=y;
             }
-            else cout<<query(x,x)+query(x+1,y)<<endl;
+            else {
+                ll ans=-0x3f3f3f3f3f3f3f3f;
+                for(int l=x,r=max(y-5,x+1);r<=y;r++) {
+//                     cout<<l<<' '<<r<<endl;
+                    ans=max(ans,query(l,r-1)-a[r]);
+                }
+                cout<<ans<<endl;
+            }
         }
     }
 }
