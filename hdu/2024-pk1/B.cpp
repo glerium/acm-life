@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-constexpr int maxn=5;
+constexpr int maxn=4567;
 int n,k,p,a[maxn];
 ll ans[maxn],f[maxn][maxn];
 int main() {

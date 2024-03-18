@@ -3,16 +3,11 @@ using namespace std;
 typedef long long ll;
 constexpr int maxn = 1e6+10;
 constexpr ll mod = 1e9+7;
-int n,head[maxn],ct,dep[maxn],fa[maxn],to[maxn];
+int n,dep[maxn],fa[maxn],to[maxn];
 bitset<maxn> vis,ok;
-vector<int> vs;
+vector<int> vs,a[maxn];
 ll p[maxn];
-struct Edge {
-    int to, nxt;
-} a[maxn];
 void add(int x,int y) {
-    a[++ct] = {y, head[x]};
-    head[x] = ct;
     to[x] = y;
 }
 
@@ -28,17 +23,15 @@ ll frac(ll x,ll y) {
 
 void dfs(int x) {
     dep[x] = dep[fa[x]] + 1;
-    for(int i=head[x];i;i=a[i].nxt) {
-        if(a[i].to == fa[x]) continue;
-        if(!dep[a[i].to]) {
-            fa[a[i].to] = x;
-            dfs(a[i].to);
-        }else if(dep[a[i].to] < dep[x]) {
-            for(int j=x; ;j=fa[j]) {
-                ok[j] = true;
-                vs.push_back(j);
-                if(j==a[i].to) break;
-            }
+    if(to[x] == fa[x]) return;
+    if(!dep[to[x]]) {
+        fa[to[x]] = x;
+        dfs(to[x]);
+    }else if(dep[to[x]] < dep[x]) {
+        for(int j=x; ;j=fa[j]) {
+            ok[j] = true;
+            vs.push_back(j);
+            if(j==to[x]) break;
         }
     }
 }
