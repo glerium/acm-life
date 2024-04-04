@@ -46,8 +46,10 @@ void solve() {
     int ans = 0;
     for(int i=0;i<(1<<n);i++) {
         for(int j=0;j<n;j++) {
-            if(dp[i][j])
+            if(dp[i][j]) {
+                cout << i << ' ' << j << endl;
                 ans = max(ans, __builtin_popcount(i));
+            }
         }
     }
     cout << n - ans << endl;
