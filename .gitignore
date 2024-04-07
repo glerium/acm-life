@@ -21,3 +21,4 @@ ans.txt
 cmake-build-debug/
 CMakeLists.txt
 sdu-mpi/
+**/.cph
