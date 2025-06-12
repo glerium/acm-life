@@ -11,9 +11,7 @@
 test*
 tmp.*
 temp.*
-in.txt
-out.txt
-ans.txt
+*.txt
 .VSCodeCounter/
 /duipai/
 /my-projects/
