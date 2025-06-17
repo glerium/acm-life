@@ -13,31 +13,59 @@ auto Vec(size_t n, Args... args) {
     else
         return vector(n, Vec<T>(args...));
 }
-struct String {
-    string s;
-    string p;
-    bool operator<(const String& rhs) const {
-        return s < rhs.s;
-    }
-};
 void solve() {
     int n,q; cin >> n >> q;
     string s; cin >> s; s = ' ' + s;
-    char x[q+5] = {}, y[q+5] = {};
-    rep(i,1,q) cin >> x[i] >> y[i];
-    map<int,int> mp;
+    map<pair<char,char>, set<int>> mp;
     rep(i,1,q) {
-        mp[x[i] * 256 + y[i]]++;
+        char x,y; cin >> x >> y;
+        mp[{x,y}].insert(i);
     }
-    auto check = [&](char x, char y) -> bool {
-        if(x == y) return true;
-        int key = x * 256 + y;
-        if(mp[key] > 0) {
-            mp[key]--;
-            return true;
+    rep(i,1,n) {
+        if(s[i] == 'a') continue;
+        else if(s[i] == 'b') {
+            auto &tmp = mp[{'b','a'}];
+            if(!tmp.empty()) {
+                s[i] = 'a';
+                tmp.erase(tmp.begin());
+            }else{
+                auto &tmp1 = mp[{'b','c'}];
+                auto &tmp2 = mp[{'c','a'}];
+                if(!tmp1.empty()) {
+                    auto pos1 = *tmp1.begin();
+                    set<int>::iterator fnd;
+                    if((fnd = tmp2.lower_bound(pos1)) != tmp2.end()) {
+                        // ok
+                        s[i] = 'a';
+                        tmp1.erase(tmp1.begin());
+                        tmp2.erase(fnd);
+                    }
+                }
+            }
+        }else {     // s[i] == 'c'
+            auto &tmp = mp[{'c','a'}];
+            if(!tmp.empty()) {
+                s[i] = 'a';
+                tmp.erase(tmp.begin());
+            } else {
+                auto &tmp1 = mp[{'c','b'}];
+                if(!tmp1.empty()) {
+                    auto pos1 = *tmp1.begin();
+                    auto &tmp2 = mp[{'b','a'}];
+                    set<int>::iterator fnd;
+                    if((fnd = tmp2.lower_bound(pos1)) != tmp2.end()) {
+                        s[i] = 'a';
+                        tmp1.erase(tmp1.begin());
+                        tmp2.erase(fnd);
+                    } else {
+                        s[i] = 'b';
+                        tmp1.erase(tmp1.begin());
+                    }
+                }
+            }
         }
-        
-    };
+    }
+    cout << s.substr(1) << endl;
 }
 int main() {
     ios::sync_with_stdio(false);

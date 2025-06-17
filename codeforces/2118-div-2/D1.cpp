@@ -50,11 +50,11 @@ void solve() {
             if((nexTim - d[fnd]) % k == 0) {
                 dir = !dir;
             }
-            if(vis.count(pos * 4 + initDir * 2 + dir)) {
-                break;     // no
+            if(initDir != dir) {
+                if(vis.count(pos * 2 + dir))
+                    break;
+                vis.insert(pos * 2 + dir);
             }
-            if(initDir != dir)
-                vis.insert(pos * 4 + initDir * 2 + dir);
             pos = p[fnd];
             tim = nexTim;
         }
