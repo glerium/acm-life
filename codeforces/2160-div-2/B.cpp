@@ -15,7 +15,23 @@ auto Vec(size_t n, Args... args) {
 }
 void solve() {
     int n; cin >> n;
-    
+    vector<ll> b(n+5);
+    rep(i,1,n) cin >> b[i];
+    vector<int> a(n+5);
+    int now = 0;
+    vector<int> pos(n+5);
+    rep(i,1,n) {
+        ll delta = b[i] - b[i-1];
+        if(delta == i) {
+            a[i] = i;
+        } else {
+            a[i] = a[i - delta];
+        }
+    }
+    rep(i,1,n) {
+        cout << a[i] << ' ';
+    }
+    cout << endl;
 }
 int main() {
     ios::sync_with_stdio(false);

@@ -14,8 +14,26 @@ auto Vec(size_t n, Args... args) {
         return vector(n, Vec<T>(args...));
 }
 void solve() {
-    int n; cin >> n;
-    
+    int x,y,z; cin >> x >> y >> z;
+    rep(i,0,30) {
+        bool ok = false;
+        rep(aa,0,1) {
+            rep(bb,0,1) {
+                rep(cc,0,1) {
+                    if(((aa & bb) == (bool)(x & (1 << i))) && 
+                       ((bb & cc) == (bool)(y & (1 << i))) &&
+                       ((cc & aa) == (bool)(z & (1 << i)))) {
+                        ok = true;
+                    }
+                }
+            }
+        }
+        if(!ok) {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+    cout << "YES" << endl;
 }
 int main() {
     ios::sync_with_stdio(false);

@@ -15,7 +15,17 @@ auto Vec(size_t n, Args... args) {
 }
 void solve() {
     int n; cin >> n;
-    
+    set<int> st;
+    rep(i,1,n) {
+        int x; cin >> x;
+        st.insert(x);
+    }
+    rep(i,0,100) {
+        if(!st.count(i)) {
+            cout << i << endl;
+            return;
+        }
+    }
 }
 int main() {
     ios::sync_with_stdio(false);

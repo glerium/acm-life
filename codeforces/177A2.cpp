@@ -15,12 +15,19 @@ auto Vec(size_t n, Args... args) {
 }
 void solve() {
     int n; cin >> n;
-    
+    int ans = 0;
+    rep(i,1,n) rep(j,1,n) {
+        int x; cin >> x;
+        if(i == n / 2 + 1 ||
+           j == n / 2 + 1 ||
+           i == j || i + j == n + 1) ans += x;
+    }
+    cout << ans << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    int t; cin>>t;
+    int t = 1;
     while(t--) solve();
     return 0;
 }
