@@ -18,25 +18,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install compiler + ccache
-        run: sudo apt-get update && sudo apt-get install -y g++ ccache
-
-      - name: Setup ccache
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "CCACHE_DIR=$HOME/.ccache" >> $GITHUB_ENV
-          ccache --set-config=cache_dir=$HOME/.ccache
-          ccache --set-config=max_size=2G
-          ccache -z
-
-      - name: Cache ccache
-        uses: actions/cache@v4
-        with:
-          path: ~/.ccache
-          key: ccache-${{ runner.os }}-${{ matrix.compiler }}-${{ github.ref_name }}
-          restore-keys: |
-            ccache-${{ runner.os }}-${{ matrix.compiler }}-
+      - name: Install compiler
+        run: sudo apt-get update && sudo apt-get install -y g++
 
       - name: Decide compile scope
         shell: bash
@@ -63,7 +46,7 @@ jobs:
           echo "Targets:"
           cat /tmp/targets.txt || true
 
-      - name: Compile (parallel, syntax-only, ccache)
+      - name: Compile (parallel, syntax-only)
         shell: bash
         run: |
           set -euo pipefail
@@ -74,7 +57,7 @@ jobs:
           fi
 
           COMP="${{ matrix.compiler }}"
-          CXXFLAGS="-std=c++20 -pipe"
+          CXXFLAGS="-std=c++20 -O2 -pipe -Wall -Wextra"
           JOBS="$(nproc)"
 
           echo "Compiler: $COMP"
@@ -85,7 +68,7 @@ jobs:
           xargs -P "$JOBS" -I{} bash -lc '
             f="$1"
             echo "==> $f"
-            if ! ccache "'"$COMP"'" '"$CXXFLAGS"' -fsyntax-only "$f"; then
+            if ! "'"$COMP"'" '"$CXXFLAGS"' -fsyntax-only "$f"; then
               flock /tmp/failed.lock bash -lc "echo \"$f\" >> /tmp/failed.txt"
             fi
           ' _ {} < /tmp/targets.txt
@@ -96,7 +79,3 @@ jobs:
             sort -u /tmp/failed.txt
             exit 1
           fi
-
-      - name: ccache stats
-        if: always()
-        run: ccache -s
