@@ -1,0 +1,72 @@
+name: cpp-build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [g++]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install compiler
+        run: sudo apt-get update && sudo apt-get install -y g++
+
+      - name: Decide compile scope (changed vs all)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "[Full build] compiling all .cpp"
+            git ls-files '*.cpp' > /tmp/targets.txt
+          else
+            echo "[Incremental] compiling changed .cpp only"
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              BASE="${{ github.event.pull_request.base.sha }}"
+              HEAD="${{ github.event.pull_request.head.sha }}"
+            else
+              BASE="${{ github.event.before }}"
+              HEAD="${{ github.sha }}"
+            fi
+
+            git diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '*.cpp' > /tmp/targets.txt || true
+          fi
+
+          echo "Targets:"
+          cat /tmp/targets.txt || true
+
+      - name: Compile
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s /tmp/targets.txt ]; then
+            echo "No cpp files to compile."
+            exit 0
+          fi
+
+          CXXFLAGS="-std=c++17 -O2 -pipe -Wall -Wextra"
+          mkdir -p /tmp/acm_build
+
+          failed=0
+          while IFS= read -r f; do
+            out="/tmp/acm_build/$(echo "$f" | tr '/.' '__')"
+            echo "==> $f"
+            if ! g++ $CXXFLAGS "$f" -o "$out"; then
+              failed=$((failed+1))
+            fi
+          done < /tmp/targets.txt
+
+          if [ "$failed" -ne 0 ]; then
+            echo "$failed file(s) failed."
+            exit 1
+          fi
