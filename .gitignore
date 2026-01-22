@@ -14,9 +14,7 @@ temp.*
 *.txt
 .VSCodeCounter/
 /duipai/
-/my-projects/
 .idea/
 cmake-build-debug/
 CMakeLists.txt
-sdu-mpi/
 **/.cph

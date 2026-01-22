@@ -22,7 +22,7 @@ bool equal(int l1,int r1,int l2,int r2){
 int main() {
     cin>>_;
     while(_--) {
-        cin>>(s+1);
+        cin.getline(s+1, 99);
         init();
         int ans=0;
         rep(i,1,n-1) {
