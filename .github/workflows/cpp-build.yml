@@ -54,19 +54,23 @@ jobs:
             exit 0
           fi
 
+          COMP="${{ matrix.compiler }}"
           CXXFLAGS="-std=c++17 -O2 -pipe -Wall -Wextra"
           mkdir -p /tmp/acm_build
 
-          failed=0
+          failed_files=()
+
           while IFS= read -r f; do
             out="/tmp/acm_build/$(echo "$f" | tr '/.' '__')"
             echo "==> $f"
-            if ! g++ $CXXFLAGS "$f" -o "$out"; then
-              failed=$((failed+1))
+            if ! "$COMP" $CXXFLAGS "$f" -o "$out"; then
+              failed_files+=("$f")
             fi
           done < /tmp/targets.txt
 
-          if [ "$failed" -ne 0 ]; then
-            echo "$failed file(s) failed."
+          if [ "${#failed_files[@]}" -ne 0 ]; then
+            echo ""
+            echo "=== Failed files (${#failed_files[@]}) ==="
+            printf '%s\n' "${failed_files[@]}"
             exit 1
           fi
