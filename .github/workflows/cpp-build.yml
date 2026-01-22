@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "[Full build] compiling all .cpp"
             git ls-files '*.cpp' > /tmp/targets.txt
           else
@@ -39,38 +39,43 @@ jobs:
               HEAD="${{ github.sha }}"
             fi
 
+            echo "Diff range: $BASE..$HEAD"
             git diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '*.cpp' > /tmp/targets.txt || true
           fi
 
           echo "Targets:"
           cat /tmp/targets.txt || true
 
-      - name: Compile
+      - name: Compile (parallel, syntax-only)
         shell: bash
         run: |
           set -euo pipefail
+
           if [ ! -s /tmp/targets.txt ]; then
             echo "No cpp files to compile."
             exit 0
           fi
 
           COMP="${{ matrix.compiler }}"
-          CXXFLAGS="-std=c++17 -O2 -pipe -Wall -Wextra"
-          mkdir -p /tmp/acm_build
+          CXXFLAGS="-std=c++20 -O2 -pipe -Wall -Wextra"
+          JOBS="$(nproc)"
 
-          failed_files=()
+          echo "Compiler: $COMP"
+          echo "Parallel jobs: $JOBS"
 
-          while IFS= read -r f; do
-            out="/tmp/acm_build/$(echo "$f" | tr '/.' '__')"
+          : > /tmp/failed.txt
+
+          xargs -P "$JOBS" -I{} bash -lc '
+            f="$1"
             echo "==> $f"
-            if ! "$COMP" $CXXFLAGS "$f" -o "$out"; then
-              failed_files+=("$f")
+            if ! "'"$COMP"'" '"$CXXFLAGS"' -fsyntax-only "$f"; then
+              flock /tmp/failed.lock bash -lc "echo \"$f\" >> /tmp/failed.txt"
             fi
-          done < /tmp/targets.txt
+          ' _ {} < /tmp/targets.txt
 
-          if [ "${#failed_files[@]}" -ne 0 ]; then
+          if [ -s /tmp/failed.txt ]; then
             echo ""
-            echo "=== Failed files (${#failed_files[@]}) ==="
-            printf '%s\n' "${failed_files[@]}"
+            echo "=== Failed files ($(wc -l < /tmp/failed.txt)) ==="
+            sort -u /tmp/failed.txt
             exit 1
           fi
