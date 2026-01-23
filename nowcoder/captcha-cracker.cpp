@@ -6,7 +6,7 @@ map<string,string> mp;
 int main() {
     cin>>n;
     while(n--) {
-        cin>>(s+1);
+        scanf("%s", s+1);
         ct=0;
         int m=strlen(s+1);
         for(int i=1;i<=m;i++) {

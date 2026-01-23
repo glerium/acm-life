@@ -7,7 +7,8 @@ ll x,y,z,f[maxn][2];    // at i, j:capslock
 char s[maxn];
 int main() {
     // freopen("in.txt","r",stdin);
-    cin>>x>>y>>z>>(s+1);
+    cin>>x>>y>>z;
+    scanf("%s", s+1);
     int n=strlen(s+1);
     f[0][1]=mx;
     for(int i=1;i<=n;i++) {

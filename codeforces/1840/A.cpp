@@ -5,7 +5,8 @@ char s[10000];
 int main() {
     cin>>t;
     while(t--) {
-        cin>>n>>s+1;
+        cin>>n;
+        scanf("%s", s+1);
         char c=-1;
         string ans;
         for(int i=1;i<=n;i++) {

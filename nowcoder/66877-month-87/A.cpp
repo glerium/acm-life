@@ -2,7 +2,7 @@
 using namespace std;
 char s[100];
 int main() {
-    cin>>(s+1);
+    scanf("%s", s+1);
     int ans=strlen(s+1);
     int n=ans;
     for(int i=n;i>=1;i--) {

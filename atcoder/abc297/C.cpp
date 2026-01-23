@@ -14,7 +14,7 @@ bool operate(char* s) {
 }
 int main() {
     cin>>n>>m;
-    for(int i=1;i<=n;i++) cin>>s[i]+1;
+    for(int i=1;i<=n;i++) scanf("%s", s[i]+1);
     int ans=0;
     for(int i=1;i<=n;i++)
         while(operate(s[i]));

@@ -38,7 +38,7 @@ struct Manacher {
     }
 } manacher;
 int main() {
-    cin >> (s+1);
+    scanf("%s", s+1);
     manacher.init(s);
     manacher.manacher();
     manacher.debug();

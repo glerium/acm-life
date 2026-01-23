@@ -6,7 +6,8 @@ char s[200007];
 int main(){
     cin>>t;
     while(t--){
-        cin>>n>>s+1;
+        cin>>n;
+        scanf("%s", s+1);
         if(n&1) {
             cout<<-1<<endl;
             continue;

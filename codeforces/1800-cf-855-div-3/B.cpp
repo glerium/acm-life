@@ -6,7 +6,8 @@ char s[maxn];
 int main() {
     cin>>t;
     while(t--) {
-        cin>>n>>k>>(s+1);
+        cin>>n>>k;
+        scanf("%s", s+1);
         int ct[30][2]={};
         for(int i=1;i<=n;i++) {
             if(islower(s[i])) ct[s[i]-'a'][0]++;

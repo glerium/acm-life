@@ -35,13 +35,12 @@ void clear() {
     for(int i=1;i<=n*m;i++) win[i]=true, b[i].clear(), bb[i].clear();
 }
 int main() {
-    ios::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     cin>>t;
     while(t--) {
         cin>>n>>m;
         clear();
-        for(int i=1;i<=n;i++) cin>>(s[i]+1);
+        for(int i=1;i<=n;i++) scanf("%s", s[i]+1);
         for(int i=1;i<=n;i++) {
             for(int j=1;j<=m;j++) {
                 if(s[i][j]=='.'&&!vis[i][j]) {

@@ -4,10 +4,10 @@ constexpr int maxn=1e5+10;
 int t,n,a[maxn],idx;
 char s[maxn];
 int main() {
-    ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
-        cin>>n>>(s+1);
+        cin>>n;
+        scanf("%s", s+1);
         idx=0;
         for(int l=1,r=n;l<r;l++,r--) swap(s[l],s[r]);
         int ct=0;

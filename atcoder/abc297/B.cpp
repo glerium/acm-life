@@ -2,7 +2,7 @@
 using namespace std;
 char s[100];
 int main() {
-    cin>>s+1;
+    scanf("%s", s+1);
     bool yes=true;
     for(int i=1;i<=8;i++) {
         for(int j=i+1;j<=8;j++) {

@@ -11,10 +11,10 @@ int dfs(int x) {
     return f[x];
 }
 int main() {
-    ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
-        cin>>n>>(s+1);
+        cin>>n;
+        scanf("%s", s+1);
         rep(i,1,n) cin>>l[i]>>r[i];
         rep(i,1,n) f[i]=0x3f3f3f3f;
         cout<<dfs(1)<<endl;        

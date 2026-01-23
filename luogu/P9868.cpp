@@ -5,10 +5,9 @@ constexpr int maxn=3e3+10;
 int n,m;
 char a[maxn][maxn],b[maxn][maxn];
 int main() {
-    ios::sync_with_stdio(false);
     cin>>n>>m;
     rep(i,1,n) {
-        cin>>(a[i]+1);
+        scanf("%s", a[i]+1);
         strcpy(b[i]+1,a[i]+1);
         sort(a[i]+1,a[i]+1+m);
         sort(b[i]+1,b[i]+1+m,greater<char>());
