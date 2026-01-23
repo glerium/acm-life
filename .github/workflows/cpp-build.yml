@@ -28,7 +28,7 @@ jobs:
 
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "[Full build] compiling all .cpp"
-            git ls-files '*.cpp' > /tmp/targets.txt
+            git -c core.quotepath=false ls-files '*.cpp' > /tmp/targets.txt
           else
             echo "[Incremental] compiling changed .cpp only"
             if [ "${{ github.event_name }}" = "pull_request" ]; then
@@ -40,7 +40,7 @@ jobs:
             fi
 
             echo "Diff range: $BASE..$HEAD"
-            git diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '*.cpp' > /tmp/targets.txt || true
+            git -c core.quotepath=false diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '*.cpp' > /tmp/targets.txt || true
           fi
 
           echo "Targets:"
