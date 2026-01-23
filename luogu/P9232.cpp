@@ -17,7 +17,7 @@ int dp(int x, int y) {
     else return f[x][y]=1;
 }
 int main() {
-    cin>>s+1;
+    scanf("%s", s+1);
     n=strlen(s+1);
     int ans=0;
     memset(f,-1,sizeof(f));

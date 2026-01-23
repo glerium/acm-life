@@ -8,7 +8,9 @@ priority_queue<pii,vector<pii>,greater<pii>> que;
 int main() {
 	cin>>_;
 	while(_--) {
-		cin>>s1+1>>s2+1>>t>>q;
+		scanf("%s", s1+1);
+		scanf("%s", s2+1);
+		cin>>t>>q;
 		while(!que.empty()) que.pop();
 		int ans=0;
 		int n=strlen(s1+1);

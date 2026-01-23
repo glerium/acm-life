@@ -2,7 +2,7 @@
 using namespace std; using ll = long long; int t_ = 1;
 template <class T> requires (ranges::contiguous_range<T> && !is_same_v<remove_cvref_t<T>, string>) istream& operator>>(istream &in, T &c) { for (auto &x : c) in >> x; return in; }
 #ifndef ONLINE_JUDGE
-template <class... Args> void debug_7_divided_by_3(int testcase, int line, string name, const Args&... args) { int stk = 0; for (auto &x : name) { if (x == '(') stk++; if (x == ')') stk--; if (x == ',' && stk == 0) x = '\t'; } int i = 0; auto names = name | views::split("\t"sv) | ranges::to<vector<string>>(); print(cerr, "T{}L{}: {{", testcase, line); ((print(cerr, "{} = {}{}", names[i], args, (i + 1 < sizeof...(args) ? "," : "}\n")), ++i), ...); }
+template <class... Args> void debug_7_divided_by_3(int testcase, int line, string name, const Args&... args) { int stk = 0; for (auto &x : name) { if (x == '(') stk++; if (x == ')') stk--; if (x == ',' && stk == 0) x = '\t'; } int i = 0; vector<string> names; for (auto part : name | views::split("\t"sv)) { names.emplace_back(part.begin(), part.end()); } cerr << format("T{}L{}: {{", testcase, line); ((cerr << format("{} = {}{}", names[i], args, (i + 1 < sizeof...(args) ? "," : "}\n")), ++i), ...); }
 #define debug(...) debug_7_divided_by_3(t_, __LINE__, #__VA_ARGS__, __VA_ARGS__)
 #else
 #define debug(...) 7 / 3

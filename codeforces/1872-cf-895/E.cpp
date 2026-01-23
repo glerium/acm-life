@@ -9,7 +9,7 @@ int main() {
     while(_--) {
         cin>>n;
         for(int i=1;i<=n;i++) cin>>a[i];
-        cin>>(s+1);
+        scanf("%s", s+1);
         ans0=ans1=0;
         for(int i=1;i<=n;i++) {
             if(s[i]=='0') ans0^=a[i];

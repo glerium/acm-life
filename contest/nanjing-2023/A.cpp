@@ -41,7 +41,7 @@ int main() {
     while(t--) {
         cin>>n>>m;
         clear();
-        for(int i=1;i<=n;i++) cin>>(s[i]+1);
+        for(int i=1;i<=n;i++) scanf("%s", s[i]+1);
         for(int i=1;i<=n;i++) {
             for(int j=1;j<=m;j++) {
                 if(s[i][j]=='.'&&!vis[i][j]) {

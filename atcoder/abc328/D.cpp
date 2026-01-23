@@ -3,7 +3,7 @@ using namespace std;
 char s[200005];
 int st[200005],top;
 int main() {
-    cin>>(s+1);
+    scanf("%s", s+1);
     int n=strlen(s+1);
     for(int i=1;i<=n;i++) {
         st[++top]=s[i];

@@ -3,7 +3,8 @@ using namespace std;
 int n,fl[1003],fo[1003];
 char s[1003];
 int main() {
-    cin>>n>>(s+1);
+    scanf("%s", s+1);
+    cin>>n;
     for(int i=1;i<=n;i++) {
         fl[i]=fl[i-1]+(s[i]=='L');
         fo[i]=fo[i-1]+(s[i]=='O');

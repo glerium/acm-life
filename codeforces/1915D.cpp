@@ -12,7 +12,8 @@ int main() {
     ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
-        cin>>n>>(s+1);
+        cin>>n;
+        scanf("%s", s+1);
         v.reset();
         int i=n;
         while(i>=1) {

@@ -12,7 +12,7 @@ bool check(char c) {
 int main() {
     cin>>t;
     while(t--) {
-        for(int i=1;i<=3;i++) cin>>(a[i]+1);
+        for(int i=1;i<=3;i++) scanf("%s", a[i]+1);
         bool ya=check('A'),
              yb=check('B');
         if(ya&&yb) puts("invalid");

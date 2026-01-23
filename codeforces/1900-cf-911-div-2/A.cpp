@@ -8,7 +8,8 @@ int main() {
     ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
-        cin>>n>>(s+1);
+        cin>>n;
+        scanf("%s", s+1);
         w.clear();
         int last=-1;
         for(int i=1;i<=n;i++) {

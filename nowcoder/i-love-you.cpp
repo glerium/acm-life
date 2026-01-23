@@ -4,7 +4,7 @@ const int maxn=1e6+10;
 char s[maxn];
 int f[maxn][13];
 int main() {
-    cin>>(s+1);
+    scanf("%s", s+1);
     int n=strlen(s+1);
     for(int i=1;i<=n;i++) {
         s[i]=tolower(s[i]);
