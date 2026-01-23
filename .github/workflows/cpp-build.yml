@@ -57,7 +57,7 @@ jobs:
           fi
 
           COMP="${{ matrix.compiler }}"
-          CXXFLAGS="-std=c++20 -O2 -pipe -Wall -Wextra"
+          CXXFLAGS="-std=c++20 -pipe"
           JOBS="$(nproc)"
 
           echo "Compiler: $COMP"
