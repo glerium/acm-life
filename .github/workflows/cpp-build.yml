@@ -65,11 +65,11 @@ jobs:
 
           : > /tmp/failed.txt
 
-          xargs -P "$JOBS" -I{} bash -lc '
+          xargs -P "$JOBS" -I{} bash -c '
             f="$1"
             echo "==> $f"
             if ! "'"$COMP"'" '"$CXXFLAGS"' -fsyntax-only "$f"; then
-              flock /tmp/failed.lock bash -lc "echo \"$f\" >> /tmp/failed.txt"
+              flock /tmp/failed.lock bash -c '\''printf "%s\n" "$1" >> /tmp/failed.txt'\'' _ "$f"
             fi
           ' _ {} < /tmp/targets.txt
 
