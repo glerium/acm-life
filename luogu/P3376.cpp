@@ -2,7 +2,7 @@
  * Filename: i:\code\cpp\luogu\P3376.cpp
  * Path: i:\code\cpp\luogu
  * Created Date: Tuesday, September 10th 2024, 4:39:54 pm
- * Author: 温泽林
+ * Author: Glerium
  * 
  * Copyright (c) 2024  
  */

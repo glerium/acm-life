@@ -2,7 +2,7 @@
  * Filename: i:\code\cpp\contest\240908-ccpc-online-1\G.cpp
  * Path: i:\code\cpp\contest\240908-ccpc-online-1
  * Created Date: Tuesday, September 10th 2024, 7:32:37 pm
- * Author: 温泽林
+ * Author: Glerium
  * 
  * Copyright (c) 2024  
  */

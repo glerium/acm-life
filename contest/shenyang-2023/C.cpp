@@ -2,7 +2,7 @@
  * Filename: i:\code\cpp\contest\shenyang-2023\C.cpp
  * Path: i:\code\cpp\contest\shenyang-2023
  * Created Date: Saturday, October 5th 2024, 1:09:31 pm
- * Author: 温泽林
+ * Author: Glerium
  * 
  * Copyright (c) 2024  
  */

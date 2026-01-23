@@ -2,7 +2,7 @@
  * Filename: i:\code\cpp\contest\240908-ccpc-online-1\P1345.cpp
  * Path: i:\code\cpp\contest\240908-ccpc-online-1
  * Created Date: Thursday, September 12th 2024, 11:14:47 am
- * Author: 温泽林
+ * Author: Glerium
  * 
  * Copyright (c) 2024  
  */

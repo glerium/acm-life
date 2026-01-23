@@ -2,7 +2,7 @@
  * Filename: i:\code\cpp\contest\240908-ccpc-online-1\P2071.cpp
  * Path: i:\code\cpp\contest\240908-ccpc-online-1
  * Created Date: Wednesday, September 11th 2024, 8:42:35 pm
- * Author: 温泽林
+ * Author: Glerium
  * 
  * Copyright (c) 2024  
  */
