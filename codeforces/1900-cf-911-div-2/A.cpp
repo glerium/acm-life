@@ -5,7 +5,6 @@ int t,n;
 char s[maxn];
 vector<int> w;
 int main() {
-    ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
         cin>>n;

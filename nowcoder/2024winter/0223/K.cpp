@@ -27,7 +27,6 @@ void init() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
     cin>>n>>m>>q;
     for(int i=1;i<=n;i++) scanf("%s", a[i]+1);
     init();

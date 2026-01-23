@@ -5,7 +5,6 @@ constexpr int maxn=3e3+10;
 int n,m;
 char a[maxn][maxn],b[maxn][maxn];
 int main() {
-    ios::sync_with_stdio(false);
     cin>>n>>m;
     rep(i,1,n) {
         scanf("%s", a[i]+1);

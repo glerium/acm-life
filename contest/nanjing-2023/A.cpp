@@ -35,7 +35,6 @@ void clear() {
     for(int i=1;i<=n*m;i++) win[i]=true, b[i].clear(), bb[i].clear();
 }
 int main() {
-    ios::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     cin>>t;
     while(t--) {

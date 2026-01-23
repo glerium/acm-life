@@ -4,7 +4,6 @@ constexpr int maxn=1e5+10;
 int t,n,a[maxn],idx;
 char s[maxn];
 int main() {
-    ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
         cin>>n;

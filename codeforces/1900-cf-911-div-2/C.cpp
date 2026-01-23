@@ -11,7 +11,6 @@ int dfs(int x) {
     return f[x];
 }
 int main() {
-    ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
         cin>>n;

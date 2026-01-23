@@ -5,7 +5,6 @@ int n,f[maxn];
 char s[maxn];
 vector<int> v[3][2];
 int main() {
-    ios::sync_with_stdio(false);
     int _;
     cin>>_;
     while(_--) {

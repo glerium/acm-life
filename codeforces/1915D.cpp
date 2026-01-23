@@ -9,7 +9,6 @@ bool isc(char ch){
     return false;
 }
 int main() {
-    ios::sync_with_stdio(false);
     cin>>t;
     while(t--) {
         cin>>n;
