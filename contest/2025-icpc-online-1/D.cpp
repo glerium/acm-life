@@ -42,8 +42,6 @@ void solve() {
         ver[u].push_back(v);
         ver[v].push_back(u);
     }
-    vector<int> vis_vec(n+1);
-    vector<pair<ll,int>> v(n+1);
     priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
     set<pair<int,int>> vis;
     for(int i=1;i<=n;i++)pq.emplace(w[i],i);
@@ -53,9 +51,7 @@ void solve() {
         pq.pop();
         // cerr<<":1 "<<wi<<' '<<pi<<'\n';
         int now=pi;
-        bool ok=true;
         int maxi=0,maxw=mx[find(pi)];
-        ok=false;
         for(auto it:ver[now])
         {
             if(mi[find(it)]>maxw)
@@ -67,7 +63,6 @@ void solve() {
         if(maxi)
         {
             // cerr<<":2 "<<pi<<' '<<maxi<<'\n';
-            int pre;
             marge(pi,maxi);
         } 
     }
