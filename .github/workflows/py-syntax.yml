@@ -1,0 +1,82 @@
+name: py-syntax
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Decide check scope
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "[Full check] checking all .py"
+            git -c core.quotepath=false ls-files '*.py' > /tmp/targets_py.txt
+          else
+            echo "[Incremental] checking changed .py only"
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              BASE="${{ github.event.pull_request.base.sha }}"
+              HEAD="${{ github.event.pull_request.head.sha }}"
+            else
+              BASE="${{ github.event.before }}"
+              HEAD="${{ github.sha }}"
+            fi
+
+            echo "Diff range: $BASE..$HEAD"
+            git -c core.quotepath=false diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '*.py' > /tmp/targets_py.txt || true
+          fi
+
+          echo "Targets:"
+          cat /tmp/targets_py.txt || true
+
+      - name: Python syntax check (parallel)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -s /tmp/targets_py.txt ]; then
+            echo "No py files to check."
+            exit 0
+          fi
+
+          PY="python"
+          JOBS="$(nproc)"
+
+          echo "Python: $($PY --version)"
+          echo "Parallel jobs: $JOBS"
+
+          : > /tmp/failed_py.txt
+
+          xargs -P "$JOBS" -I{} bash -lc '
+            f="$1"
+            echo "==> $f"
+            if ! "'"$PY"'" -m py_compile "$f"; then
+              flock /tmp/failed_py.lock bash -lc "echo \"$f\" >> /tmp/failed_py.txt"
+            fi
+          ' _ {} < /tmp/targets_py.txt
+
+          if [ -s /tmp/failed_py.txt ]; then
+            echo ""
+            echo "=== Failed files ($(wc -l < /tmp/failed_py.txt)) ==="
+            sort -u /tmp/failed_py.txt
+            exit 1
+          fi
