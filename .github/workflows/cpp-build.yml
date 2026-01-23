@@ -46,7 +46,7 @@ jobs:
           echo "Targets:"
           cat /tmp/targets.txt || true
 
-      - name: Compile (parallel, syntax-only)
+      - name: Compile (parallel)
         shell: bash
         run: |
           set -euo pipefail
