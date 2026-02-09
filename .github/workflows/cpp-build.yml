@@ -18,8 +18,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install compiler
-        run: sudo apt-get update && sudo apt-get install -y g++
+      # - name: Install compiler
+      #   run: sudo apt-get update && sudo apt-get install -y g++
 
       - name: Decide compile scope
         shell: bash
